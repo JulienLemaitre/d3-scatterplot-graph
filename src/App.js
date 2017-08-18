@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import * as d3 from 'd3';
 import Scatterplot from './components/scatterplot';
 import './App.css';
 
@@ -6,6 +7,24 @@ import './App.css';
 // Ne pas faire ça au niveau du composant
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      datas: null,
+      error: null
+    };
+  }
+
+  componentDidMount () {
+    d3.json('https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/master/cyclist-data.json', function(err, datas) {
+      if (err)
+        this.setState({ error: err });
+      else
+        this.setState({ datas });
+    }.bind(this));
+  }
+
   render() {
     return (
       <div className="App">
@@ -13,7 +32,11 @@ class App extends Component {
           <h1>React D3 Scatterplot Graph</h1>
         </div>
         <div className="App-body">
-          <Scatterplot />
+          {this.state.datas &&
+          <Scatterplot
+            datas = {this.state.datas}
+            error = {this.state.error}
+          />}
         </div>
       </div>
     );
