@@ -3,9 +3,6 @@ import * as d3 from 'd3';
 import Scatterplot from './components/scatterplot';
 import './App.css';
 
-// TODO rapatrier le fetch de données ici et les envoyer au Scatterplot.
-// Ne pas faire ça au niveau du composant
-
 class App extends Component {
   constructor(props) {
     super(props);
